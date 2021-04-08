@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/omaremam/TODOBackend/issues"
   },
-  "homepage": "https://github.com/omaremam/TODOBackend#readme"
+  "homepage": "https://github.com/omaremam/TODOBackend#readme",
+  "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.12.3",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemailer": "^6.5.0"
+  }
 }
