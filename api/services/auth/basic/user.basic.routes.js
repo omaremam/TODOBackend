@@ -8,15 +8,11 @@ module.exports = app => {
 
     app.post("/user/signin", validateRequest, user.signIn)
 
-    app.get("/user",validateRequest,user.getAllUsers)
+    app.get("/user", validateRequest, user.getAllUsers)
 
-    app.put("/user/requestpassword",validateRequest,user.requestPasswordResetCode)
+    app.get("/user/confirm/:userId", validateRequest, user.approveUser)
 
-    app.put("/user/resetpassword",validateRequest,user.resetPassword)
+    app.delete("/user/delete", validateRequest, user.deleteUser)
 
-    app.get("/user/confirm/:userId",validateRequest,user.approveUser)
-
-    app.put("/user/confirm/resend",validateRequest,user.resendConfirmationEmail);
-
-    app.put("/user/changepassword",validateRequest,user.changePassword);
+    app.put("/user/edit", validateRequest, user.editUser)
 }

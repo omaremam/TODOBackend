@@ -6,19 +6,12 @@ const userSchema = mongoose.Schema({
     email: { type: String, unique: true },
     password: String,
     name: String,
-    nationality: String,
-    phoneNumber: String,
-    age: Number,
-    gender: {
-        type: String,
-        enum: ["MALE", "FEMALE"]
-    },
+    lastAccessDate: Date,
     userType: {
       type: String,
-      enum: ["Tourist","Inner_Tourism","Shop_Owner"]
+      enum: ["ADMIN","REGULAR"]
     },
     isApproved: Boolean,
-    resetPasswordCode: String
 },
     {
         toJSON: {
