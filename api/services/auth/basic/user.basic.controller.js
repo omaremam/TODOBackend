@@ -51,8 +51,7 @@ exports.signIn = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().select("-password")
-            .select("-resetPasswordCode");
+        const users = await User.find().select("-password");
         if (!users) return res.status(200).send([]);
         res.status(200).send(users);
     }
@@ -113,26 +112,22 @@ function sendConfirmationMail(email, url, name, isResent) {
               }
             </style>
             <a href="${url}" class="button">Verify my account</a>
-        <h4><p style="color:rgb(0,0,0);">We require a verified email address so you can take the full advantage of all the app features, and also you can safely recover your account in the future.</p></h4>
-        
-        <h4><p style="color:rgb(0,0,0);">If you did not recently attempt to create a new account with this email address. you can safely disregard this email.</p></h4>
-        <h4><p style="color:rgb(85,95,107);">Thanks for helping us ensure your new account is secure,</p>
-        <h4><p style="color:rgb(85,95,107);">Sharm El-Sheikh Team</p></h4></html>
+        <h4><p style="color:rgb(85,95,107);">Thank you</p></h4></html>
         </h4>`
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'sharmelshiikh@gmail.com',
-            pass: 'sharm2020'
+            user: 'ghanditest06@gmail.com',
+            pass: 'test12test34'
         }
     });
 
     const teamMailOption = {
-        from: 'sharmelshiikh@gmail.com', // sender address
+        from: 'ghanditest06@gmail.com', // sender address
         to: [
             email
         ], // list of receivers
-        subject: `Account confirmation Sharm ElSheikh`, // Subject line
+        subject: `Account confirmation`, // Subject line
         html: html
     };
 

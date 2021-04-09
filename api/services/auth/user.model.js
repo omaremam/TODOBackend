@@ -8,10 +8,11 @@ const userSchema = mongoose.Schema({
     name: String,
     lastAccessDate: Date,
     userType: {
-      type: String,
-      enum: ["ADMIN","REGULAR"]
+        type: String,
+        enum: ["ADMIN", "REGULAR"]
     },
     isApproved: Boolean,
+    todoListsId: [String]
 },
     {
         toJSON: {
@@ -25,5 +26,5 @@ const userSchema = mongoose.Schema({
 )
 
 userSchema.plugin(uniqueValidator);
-const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;
