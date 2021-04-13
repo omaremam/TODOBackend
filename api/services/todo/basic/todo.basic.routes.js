@@ -17,4 +17,6 @@ module.exports = app => {
     app.get("/todo/user", validateRequest, todo.getAllUserTodos)
 
     app.put("/todo/parse", validateRequest, todo.addItemsParse)
+
+    app.get("/todo/id", validateRequest, todo.getTodoById)
 }

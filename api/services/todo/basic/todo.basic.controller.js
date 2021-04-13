@@ -29,6 +29,17 @@ exports.getAllTodos = async (req, res) => {
     }
 }
 
+exports.getTodoById = async (req, res) => {
+    try {
+        const todo = await Todo.findById(req.headers.todoid)
+        if (!todo) return res.status(400).send("Invalid todo id")
+        res.status(200).send(todo)
+    }
+    catch (error) {
+        handleApiError(res, error, "getTodoById")
+    }
+}
+
 exports.addItem = async (req, res) => {
     try {
         const todo = await Todo.findById(req.headers.todoid)
@@ -67,7 +78,12 @@ exports.markDone = async (req, res) => {
         if (!todo) return res.status(400).send("Invalid todo list id")
         await Promise.all(
             todo.items.map(async item => {
-                if (item._id == req.headers.itemid) item.itemStatus = "DONE"
+                if (item._id == req.headers.itemid) {
+                    if (item.itemStatus == "DONE")
+                        item.itemStatus = "PENDING"
+                    else
+                        item.itemStatus = "DONE"
+                }
             })
         );
         await todo.save()

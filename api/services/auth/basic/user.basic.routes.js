@@ -10,6 +10,8 @@ module.exports = app => {
 
     app.get("/user", validateRequest, user.getAllUsers)
 
+    app.get("/user/regular", validateRequest, user.getAllRegularUsers)
+
     app.get("/user/confirm/:userId", validateRequest, user.approveUser)
 
     app.delete("/user/delete", validateRequest, user.deleteUser)

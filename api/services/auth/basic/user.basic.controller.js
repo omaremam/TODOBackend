@@ -12,7 +12,7 @@ exports.signUp = async (req, res) => {
         user.isApproved = false;
         user.lastAccessDate = new Date()
         await user.save();
-        sendConfirmationMail(req.body.email, `http://localhost:3000/user/confirm/${user._id}`, user.name, false)
+        sendConfirmationMail(req.body.email, `http://localhost:5000/user/confirm/${user._id}`, user.name, false)
         res.status(200).send({ message: "User Successfully registered" })
     }
     catch (error) {
@@ -37,7 +37,7 @@ exports.signIn = async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email });
         if (!user) return res.status(400).send('Invalid email or password');
-        if (!user.isApproved) return res.status(400).send("User not confirmed yet")
+        if (!user.isApproved) return res.status(409).send("User not confirmed yet")
         const validpassword = await bcrypt.compare(req.body.password, user.password);
         if (!validpassword) return res.status(400).send('Invalid email or password');
         user.lastAccessDate = new Date()
@@ -57,6 +57,17 @@ exports.getAllUsers = async (req, res) => {
     }
     catch (error) {
         handleApiError(res, error, "getAllUsers");
+    }
+}
+
+exports.getAllRegularUsers = async (req, res) => {
+    try {
+        const users = await User.find({ userType: "REGULAR" }).select("-password");
+        if (!users) return res.status(200).send([]);
+        res.status(200).send(users);
+    }
+    catch (error) {
+        handleApiError(res, error, "getAllRegularUsers");
     }
 }
 
